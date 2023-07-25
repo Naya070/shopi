@@ -11,7 +11,10 @@ import OrderCard from '../OrderCard'
 
 function CheckoutSideMenu() {
     const context = useContext(ShoppingCartContext)
-    console.log("CART: ", context.cartProduct)
+    const handleDelete = (id) => {
+        const filteredProducts = context.cartProduct.filter(product => product.id != id)
+        context.setCartProduct(filteredProducts)
+    }
 
     return (
         <aside className={`${context.isCheckoutSideMenuOpen ? "flex" : "hidden"} flex flex-col fixed right-0 border bg-white border-black rounded-lg top-[68px] w-[360px] h-[calc(100vh-68px)]`}>
@@ -21,13 +24,15 @@ function CheckoutSideMenu() {
                     onClick={() => context.closeCheckoutSideMenu()}
                 />
             </div>
-            <div className='px-6'>
+            <div className='px-3 overflow-y-scroll '>
                 {context.cartProduct.map(product => (
                     <OrderCard
                         key={product.id}
+                        id={product.id}
                         title={product.title}
                         image={product.image}
                         price={product.price}
+                        handleDelete = {handleDelete}
                     />
                 ))}
             </div>
