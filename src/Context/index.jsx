@@ -2,17 +2,24 @@ import { createContext, useState } from "react";
 
 export const ShoppingCartContext = createContext()
 
-export const ShoppingCartProvider = ({children}) => {
+export const ShoppingCartProvider = ({ children }) => {
     // Shopping Cart - Increment quantity
     const [count, setCount] = useState(0)
 
     // Product Detatil - Open/close
-    const [isProductDetailOpen, setisProductDetailOpen] = useState(false)
-    const openProductDetail =() => setisProductDetailOpen(true)
-    const closeProductDetail =() => setisProductDetailOpen(false)
-    
-    const [productToShow, setProductToShow] = useState({})
+    const [isProductDetailOpen, setIsProductDetailOpen] = useState(false)
+    const openProductDetail = () => setIsProductDetailOpen(true)
+    const closeProductDetail = () => setIsProductDetailOpen(false)
 
+    // Checkout Side Menu - Open/close
+    const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false)
+    const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true)
+    const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
+
+    //Product Detail - Show product
+    const [productToShow, setProductToShow] = useState({})
+    // Shopping Cart - Add products to cart
+    const [cartProduct, setCartProduct] = useState([])
 
     return (
         <ShoppingCartContext.Provider value={{
@@ -22,7 +29,13 @@ export const ShoppingCartProvider = ({children}) => {
             closeProductDetail,
             isProductDetailOpen,
             productToShow,
-            setProductToShow
+            setProductToShow,
+            cartProduct,
+            setCartProduct,
+            isCheckoutSideMenuOpen,
+            openCheckoutSideMenu,
+            closeCheckoutSideMenu
+
         }}>
             {children}
         </ShoppingCartContext.Provider>
